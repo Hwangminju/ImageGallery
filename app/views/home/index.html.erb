@@ -1,0 +1,39 @@
+<div class="container">
+    <form style="margin-top:40px" action="/home/write" method="POST">
+        <div class="form-group">
+            <label for="exampleInputPassword1">Title</label>
+            <input type="text" name="title" class="form-control" id="exampleInputPassword1"
+            placeholder="Title">
+        </div>
+        <textarea class="form-control" rows="5" id="content" name="content"></textarea>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+
+    <% @posts.each do |p| %>
+    <div class="well">
+        <span style="font-weight:bold;">
+            <%= p.title %>
+        </span><br>
+        <%= p.content %><br>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Reply list</label><br>
+        </div>
+        
+        <% p.replies.each do |r| %>
+            <p><%= r.content %></p>
+        <% end %>
+        
+        <form style="margin-top:40px" action="/home/reply_write" method="POST">
+            <div class="form-group">
+                <label for="exampleInputPassword1">Write the reply</label><br>
+            </div>
+            <input type="hidden" name="id_of_post" value="<%= p.id %>">
+            <input type="text" name="content" class="form-control" id="content" placeholder="Content">
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+    <% end %>
+        
+    </div>
+</div>
+    
