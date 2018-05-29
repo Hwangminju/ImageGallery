@@ -4,13 +4,17 @@ class HomeController < ApplicationController
   end
   
   def write
-    post = Post.new
-    post.title = params[:title]
-    post.content = params[:content]
+    post = Post.create(title: params[:title], content: params[:content])
+    uploader = S3Uploader.new
+    file = params[:image]
+    uploader.store!(file);
+    
+    post.image = file
+    
     if post.save
       redirect_to "/home/index"
     else
-      render text: post.errors.messages
+      render text: post.errors.messages[:title].first
     end
   end
   
@@ -22,4 +26,10 @@ class HomeController < ApplicationController
     
     redirect_to "/home/index"
   end
+  
+  private
+  def post_params
+    params.require(:post).permit(:title, :content, :image)
+  end
+
 end
