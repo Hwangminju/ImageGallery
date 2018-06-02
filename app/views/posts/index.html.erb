@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,12 +16,12 @@
 <body>
     
 <div class="container gallery-container">
-    <h1>Our Image Gallery</h1>
+    <h1>Image Gallery</h1>
     
-    <p class="page-description text-center">Minju Hwang & Hyunsoo Kim</p>
+    <p class="page-description text-center">Teammates : Minju Hwang, Hyunsoo Kim</p>
 
     <div class="Container">
-        <form style="margin-top:40px" action="/home/write" method="POST" enctype="multipart/form-data">
+        <form style="margin-top:40px" action="/posts/write" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="exampleInputPassword1">Title</label>
                 <input type="text" name="title" class="form-control" id="exampleInputPassword1"
@@ -35,19 +34,20 @@
     </div>
     
     <div class="tz-gallery">
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <% @posts.each do |p| %>
+        <% @posts.each do |p| %>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
                     <span style="font-weight:bold;">
                         <%= p.title %>
                     </span><br>
                     
                     <% unless p.image.nil? %>
                         <a class="img" href="<%= p.image %>">
-                            <img src="<%= p.image %>">
+                            <img src="<%= p.image %>" width="100%", height="300px">
                         </a>
                     <% end %>
                     <br><%= p.content %><br>
+                    <%= link_to 'Destroy', post_path(p), method: :delete, data: { confirm: 'Are you sure?' } %>
                     
                     <div class="form-group">
                         <label for="exampleInputPassword1">Reply list</label><br>
@@ -57,7 +57,7 @@
                         <p><%= r.content %></p>
                     <% end %>
             
-                    <form style="margin-top:40px" action="/home/reply_write" method="POST">
+                    <form style="margin-top:40px" action="/posts/reply_write" method="POST">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Write the reply</label><br>
                         </div>
@@ -66,9 +66,9 @@
                         <input type="text" name="content" class="form-control" id="content" placeholder="Content">
                         <button type="submit" class="btn btn-default">OK</button>
                     </form>
-                <% end %>
+                </div>
             </div>
-        </div>
+        <% end %>
     </div>
 </div>
 

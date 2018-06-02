@@ -1,4 +1,4 @@
-class HomeController < ApplicationController
+class PostsController < ApplicationController
   
   def index
     @posts = Post.all
@@ -13,7 +13,7 @@ class HomeController < ApplicationController
     post.image = file
     
     if post.save
-      redirect_to "/home/index"
+      redirect_to "/posts/index"
     else
       render text: post.errors.messages[:title].first
     end
@@ -32,12 +32,11 @@ class HomeController < ApplicationController
     reply.post_id = params[:id_of_post]
     reply.save
     
-    redirect_to "/home/index"
+    redirect_to "/posts/index"
   end
   
   private
   def post_params
     params.require(:post).permit(:title, :content, :image)
   end
-
 end
