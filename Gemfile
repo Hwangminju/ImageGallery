@@ -66,3 +66,4 @@ gem 'rolify'
 
 gem "therubyracer"
 gem "twitter-bootstrap-rails"
+gem "cancancan", '~> 1.10'

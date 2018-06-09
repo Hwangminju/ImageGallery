@@ -1,6 +1,6 @@
-class CreateReplies < ActiveRecord::Migration[5.2]
+class changeReplies < ActiveRecord::Migration[5.2]
   def change
-    create_table :replies do |t|
+    change_table :replies do |t|
       t.text :content
       t.integer :post_id
 

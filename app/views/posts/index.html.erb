@@ -66,14 +66,19 @@
                     <span style="margin-left:5px; font-size:40px; font-weight:bold;">
                         <%= p.title %>
                     </span><br>
-                    
                     <% unless p.image.nil? %>
                         <a class="img" href="<%= p.image %>" data-caption:"<%= p.content %>">
                             <img title="<%=p.title %>" src="<%= p.image %>" style="width:100%; height:300px;">
                         </a>
                     <% end %>
                     <br style="font-size:30px;"><%= p.content %><br>
-                    <%= link_to '삭제', post_path(p), method: :delete, data: { confirm: 'Are you sure?' } %>
+                    
+                    <% if can? :update, p %>
+                        <%= link_to '수정', edit_post_path(p) %>
+                    <% end %>
+                    <% if can? :delete, p %>
+                        <%= link_to '삭제', post_path(p), method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <% end %>
                     
                     <hr align="center" noshade width=100%>
                     
@@ -83,9 +88,17 @@
             
                     <% p.replies.each do |r| %>
                         <p><%= r.content %></p>
+                        
+                        <% if can? :update, r %>
+                            <%= link_to '수정', edit_reply_path(r) %>
+                        <% end %>
+                        <% if can? :delete, r %>
+                            <%= link_to '삭제', post_path(r), method: :delete, data: { confirm: 'Are you sure?' } %>
+                        <% end %>
+                    
                     <% end %>
             
-                    <form style="margin-top:40px" action="/posts/reply_write" method="POST">
+                    <form style="margin-top:40px" action="/replies/write" method="POST">
                         <div class="form-group">
                             <label for="exampleInputPassword1">댓글</label><br>
                         </div>
