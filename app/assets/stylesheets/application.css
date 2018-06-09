@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
+@import url('https://fonts.googleapis.com/css?family=Poor+Story');
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+
+div {font-family: 'Poor Story', cursive;}
